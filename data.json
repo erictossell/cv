@@ -1,0 +1,13 @@
+{
+  "/": {
+      "ls": "resume.txt  contact.txt  projects",
+      "cat resume.txt": "Hi, I'm Eric. I'm a software engineer with a passion for learning and teaching.",
+      "cat contact.txt": "Email: eric@tossell.ca LinkedIn: https://www.linkedin.com/in/eric-tossell/"
+  },
+  "projects": {
+      "ls": "docs.eriim.dev  MythicPlusBot.md  Clocker.md",
+      "cat docs.eriim.dev": "https://docs.eriim.dev",
+      "cat MythicPlusBot.md": "https://mythicplusbot.dev",
+      "cat Clocker.md": "https://clocker.eriim.dev"
+  }
+}

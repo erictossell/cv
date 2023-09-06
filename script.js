@@ -1,93 +1,144 @@
-const cvData = [
-    { type: 'command', content: "$ curl -L eric@tossell.ca/cv\n" },
-    { type: 'text', content: "     Name: Eric Tossell\n" },
-    { type: 'text', content: "     Position: Integration Specialist\n" },
-    { type: 'text', content: "     Location: Toronto, ON\n" },
-    { type: 'text', content: "     Phone: 647-123-4567\n" },
-    { 
-        type: 'link', 
-        content: "     Email: ", 
-        href: "mailto:eric@tossell.ca", 
-        linkText: "eric@tossell.ca\n", 
-        linkStart: "     Email: ".length, 
-        linkEnd: "     Email: ".length + "eric@tossell.ca\n".length - 1 
-    },
-    { type: 'text', content: "     Phone: 647-123-4567\n" },
-    { type: 'link', content: "     LinkedIn: ", href: "https://www.linkedin.com/in/eric-tossell/", linkText: "https://www.linkedin.com/in/eric-tossell/\n", linkStart: "     LinkedIn: ".length, linkEnd: "     LinkedIn: ".length + "https://www.linkedin.com/in/eric-tossell/\n".length - 1 }
-];
+let inactivityTimeout;
+let currentDirectory = '/';
 
-const terminalOutput = document.querySelector(".typed-output");
-let currentLine = 0;
-let currentChar = 0;
+let data;
 
-const commandSpeed = 150;
-const responseSpeed = 1;
+fetch('./data.json')
+    .then(response => response.json())
+    .then(json => {
+        data = json;
+        // Any other initialization or logic that depends on 'data' can go here
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
 
-function appendToTerminal(content, isHTML = false) {
-    if (isHTML) {
-        terminalOutput.innerHTML += content;
-    } else {
-        terminalOutput.textContent += content;
-    }
+const terminal = document.getElementById('terminal');
+const commandInput = document.getElementById('commandInput');
+const inputContainer = document.getElementById('inputContainer');
+
+const username = 'guest';
+const host = 'tossell.ca';
+
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
 }
 
-document.addEventListener('keydown', function(event) {
-    if (event.code === 'Space') {
-        event.preventDefault();  // Prevents the default spacebar action
-        toggleTheme();
+let themes = ["default", "dark", "light"]; // Names should match CSS class names
+let currentThemeIndex = 0;
+
+function switchTheme() {
+    // Remove the current theme class from the body
+    document.body.classList.remove(themes[currentThemeIndex]);
+
+    // Go to the next theme
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+
+    // Add the next theme class to the body
+    document.body.classList.add(themes[currentThemeIndex]);
+}
+
+function startInactivityTimeout() {
+    // Clear existing timeout if any
+    if (inactivityTimeout) clearTimeout(inactivityTimeout);
+    
+    inactivityTimeout = setTimeout(() => {
+        typeText(terminal, "Recommended actions:\n- Try 'ls' to list files\n- Use 'cat filename' to read a file");
+    }, 30000); // 30000 milliseconds = 30 seconds
+}
+
+// Start the inactivity timer when the page loads
+startInactivityTimeout();
+function updatePrompt() {
+    const prompt = document.getElementById('prompt');
+    prompt.textContent = `${username}@${host} ~${currentDirectory !== '/' ? '/' + currentDirectory : ''} >`;
+}
+
+function typeText(element, text, index = 0) {
+    if (index === 0) {
+        element.currentTypingSpan = document.createElement('span');
+        // Insert the span just before the inputContainer
+        element.insertBefore(element.currentTypingSpan, document.getElementById('inputContainer'));
+    }
+
+    if (index < text.length) {
+        element.currentTypingSpan.textContent += text.charAt(index);
+        setTimeout(() => typeText(element, text, index + 1), 10);
+    } else {
+        const br = document.createElement('br');
+    element.insertBefore(br, document.getElementById('inputContainer'));
+
+        delete element.currentTypingSpan; 
+    }
+}  
+
+function clearTerminal() {
+  // Remove all child nodes from the terminal
+  while (terminal.firstChild) {
+      terminal.removeChild(terminal.firstChild);  
+  }
+  terminal.appendChild(inputContainer);
+}
+
+function createPromptElement() {
+    const div = document.createElement('div');
+    const promptText = `${username}@${host} ~${currentDirectory !== '/' ? '/' + currentDirectory : ''} > `;
+    div.innerHTML = promptText;
+    return div;
+}
+
+commandInput.addEventListener('keyup', function(event) {
+    startInactivityTimeout();
+    if (event.key === 'Enter') {
+      const command = commandInput.value.trim();
+      
+    // Check for the 'clear' command
+    if (command === 'clear') {
+      // Clear the terminal
+      clearTerminal();
+      
+      // Reset the command input
+      commandInput.value = '';
+      commandInput.focus();  // Set focus back to the input
+
+      return; // Exit the event listener here since we don't want any further processing for the 'clear' command
+    }
+      
+      // Create a new div for the command entered
+    const commandDisplay = document.createElement('div');
+    commandDisplay.innerHTML = `${username}@${host} ~${currentDirectory !== '/' ? '/' + currentDirectory : ''} > ${command}`;
+    terminal.insertBefore(commandDisplay, document.getElementById('inputContainer'));
+
+    // Handle cd command
+    if (command.startsWith('cd ')) {
+        const destination = command.split(' ')[1];
+        if (destination === '..') {
+            currentDirectory = '/';  // Moving back to root for simplicity
+        } else if (data[destination]) {
+            currentDirectory = destination;
+        } else {
+            typeText(terminal, `Unknown directory: ${destination}`);
+        }
+        updatePrompt(); // Update the prompt after a directory change
+    } else {
+        // Get response based on current directory and command
+        const response = data[currentDirectory][command];
+        
+        if (response !== undefined) {
+            typeText(terminal, response);
+        } else {
+            typeText(terminal, `Command not found: ${command}`);
+        }
+    }
+    commandInput.value = '';       
     }
 });
-;
 
-function toggleTheme() {
-    const body = document.querySelector('body');
-    
-    if (body.classList.contains('alt-theme')) {
-        body.classList.remove('alt-theme');
-    } else {
-        body.classList.add('alt-theme');
-    }
-}
-
-
-
-function typeCharacter() {
-    const currentSpeed = (currentLine === 0) ? commandSpeed : responseSpeed;
-
-    if (currentChar >= cvData[currentLine].content.length) {
-        currentLine++;
-        currentChar = 0;
-        if (currentLine < cvData.length) {
-            appendToTerminal('<br>', true);
-            setTimeout(typeCharacter, currentSpeed + 500);
-        }
-        return;
-    }
-
-    const lineData = cvData[currentLine];
-    const char = lineData.content[currentChar];
-
-    switch (lineData.type) {
-        case 'command':
-        case 'text':
-            appendToTerminal(char);
-            break;
-        case 'link':
-            // When you're in the range of the link:
-            if (currentChar === lineData.linkStart) {
-                appendToTerminal(`<a href="${lineData.href}" target="_blank">`, true);
-            }
-            appendToTerminal(char);
-            if (currentChar === lineData.linkEnd) {
-                appendToTerminal('</a>', true);
-            }
-            break;
-    }
-
-    currentChar++;
-    setTimeout(typeCharacter, currentSpeed);
-}
-
-
-
-typeCharacter(); // Start typing effect
+document.addEventListener('click', function(event) {
+  // Check if the clicked element is not the input, 
+  // and not the button, 
+  // and that the input doesn't contain the clicked element.
+  if (event.target !== commandInput && !commandInput.contains(event.target) && event.target !== themeToggleButton) {
+      commandInput.focus();
+  }
+});

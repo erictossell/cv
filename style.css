@@ -1,79 +1,95 @@
+body.dark, body.dark #terminal {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+body.light, body.light #terminal {
+    background-color: #f0f0f0;
+    color: #1a1a1a;
+}
 
 body {
-    --bg-color: black;
-    --text-color: #33FF33;
-    --bg-image: none;
-}
-
-/* Alternative Theme */
-body.alt-theme {
-    --bg-color: white;
-    --text-color: black;
-    --bg-image: url('path/to/your/image.jpg');
-}
-
-body, html {
-    font-family: 'Source Code Pro', monospace;
-    font-size: 16px;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    background-image: var(--bg-image);
+    font-family: 'Courier New', monospace;
+    background-color: black;
+    color: #f0f0f0;
+    height: 100vh;
     margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.center-container {
-    position: relative;
-    display: grid;
-   
-    justify-items: start;
-    height: 100%;
+#terminal-container {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.terminal {
-    text-align: left;    
+#terminal {
+    width: 100%;
+    height: 300px;
     
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-    position: absolute;
-    font-family: 'Source Code Pro', monospace;
-}
-
-.terminal, .typed-output {
-    margin: 0;
-    padding: 0;
-}
-
-.cursor {
-    background-color: #33FF33;
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    50% { opacity: 0; }
-}
-
-.terminal-header {
-    background-color: #4CAF50;
-    padding: 10px 15px;
-    color: white;
-    font-weight: bold;
-}
-
-.terminal-body a {
-    padding: 10px 15px;
+    background-color: black;
+    padding: 10px;
+    overflow-y: auto;
     
-    white-space: pre-wrap;
+    display: flex;
+    flex-direction: column;
 }
 
-a {
-    color: #0099FF;
-    text-decoration: none;
+#prompt {
+    display: inline-block;
+    margin-right: 10px;
 }
 
-a:hover {
-    text-decoration: underline;
+#commandInput {
+    display: inline-block;
+    width: 300px;
+    margin-top: 5px;            
+    background-color: transparent;
+    border: none;
+    caret-color: #f0f0f0;
+    color: #f0f0f0;
+    padding: 5px;
+    outline: none;            
+}
+
+#commandInput::placeholder {
+    color: #777;
+}
+
+#commandInput::-webkit-outer-spin-button,
+#commandInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#commandInput[type="number"] {
+    -moz-appearance: textfield;
+}
+
+#inputContainer {
+    display: flex;
+    align-items: center; 
+}
+
+#themeToggle {
+    position: fixed;     /* Fix the position relative to the viewport */
+    top: 10px;           /* 10 pixels from the top of the viewport */
+    right: 10px;         /* 10 pixels from the right of the viewport */
+    z-index: 1000;       /* A high z-index to ensure the button stays on top of other elements */
+
+    /* Additional styling for your button to look modern */
+    background-color: #333;
+    border: none;
+    border-radius: 8px;
+    color: #f0f0f0;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+#themeToggle:hover {
+    background-color: #555; /* Slightly lighter shade on hover */
 }
