@@ -24,7 +24,7 @@ if (localStorage.getItem('theme') === 'dark') {
   document.body.classList.add('dark');
 }
 
-let themes = ["default", "dark", "light"]; // Names should match CSS class names
+let themes = ["default", "dark", "light", "green", "blue","red"]; // Names should match CSS class names
 let currentThemeIndex = 0;
 
 function switchTheme() {

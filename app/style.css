@@ -8,6 +8,20 @@ body.light, body.light #terminal {
     color: #1a1a1a;
 }
 
+body.blue, body.blue #terminal {
+    background-color: blue;
+    color: #f0f0f0;
+}
+body.green, body.green #terminal {
+    background-color: green;
+    color: black;
+}
+body.red, body.red #terminal {
+    background-color: red;
+    color: black;
+}
+
+
 body {
     font-family: 'Courier New', monospace;
     background-color: black;
