@@ -1,0 +1,79 @@
+
+body {
+    --bg-color: black;
+    --text-color: #33FF33;
+    --bg-image: none;
+}
+
+/* Alternative Theme */
+body.alt-theme {
+    --bg-color: white;
+    --text-color: black;
+    --bg-image: url('path/to/your/image.jpg');
+}
+
+body, html {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    background-image: var(--bg-image);
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.center-container {
+    position: relative;
+    display: grid;
+   
+    justify-items: start;
+    height: 100%;
+}
+
+.terminal {
+    text-align: left;    
+    
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.terminal, .typed-output {
+    margin: 0;
+    padding: 0;
+}
+
+.cursor {
+    background-color: #33FF33;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.terminal-header {
+    background-color: #4CAF50;
+    padding: 10px 15px;
+    color: white;
+    font-weight: bold;
+}
+
+.terminal-body a {
+    padding: 10px 15px;
+    
+    white-space: pre-wrap;
+}
+
+a {
+    color: #0099FF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
