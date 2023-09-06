@@ -1,13 +1,16 @@
 {
   "/": {
-      "ls": "resume.txt  contact.txt  projects",
-      "cat resume.txt": "Hi, I'm Eric. I'm a software engineer with a passion for learning and teaching.",
-      "cat contact.txt": "Email: eric@tossell.ca LinkedIn: https://www.linkedin.com/in/eric-tossell/"
+      "ls": [{"type": "text", "content": "resume.txt  contact.txt  projects"}],
+      "cat resume.txt": [{"type": "text", "content": "Hi, I'm Eric. I'm an Integrations Specialist with a passion for learning and a fascination with command line interfaces."}],
+      "cat contact.txt": [
+        {"type": "link", "content": "mailto:eric@tossell.ca", "label": "Email me!"},
+        {"type": "link", "content": "https://www.linkedin.com/in/eric-tossell/", "label": "Check out my LinkedIn"}
+      ]
   },
   "projects": {
-      "ls": "docs.eriim.dev  MythicPlusBot.md  Clocker.md",
-      "cat docs.eriim.dev": "https://docs.eriim.dev",
-      "cat MythicPlusBot.md": "https://mythicplusbot.dev",
-      "cat Clocker.md": "https://clocker.eriim.dev"
+      "ls": [{"type": "text", "content": "docs.md  MythicPlusBot.md  Clocker.md"}],
+      "cat docs.md": [{"type": "link", "content": "https://docs.eriim.dev"}],
+      "cat MythicPlusBot.md": [{"type": "link", "content": "https://mythicplusbot.dev"}],
+      "cat Clocker.md": [{"type": "link", "content": "https://clocker.eriim.dev"}]
   }
 }

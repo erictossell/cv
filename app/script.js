@@ -16,6 +16,7 @@ fetch('./data.json')
 const terminal = document.getElementById('terminal');
 const commandInput = document.getElementById('commandInput');
 const inputContainer = document.getElementById('inputContainer');
+const themeToggleButton = document.getElementById('themeToggleButton');
 
 const username = 'guest';
 const host = 'tossell.ca';
@@ -54,23 +55,35 @@ function updatePrompt() {
     prompt.textContent = `${username}@${host} ~${currentDirectory !== '/' ? '/' + currentDirectory : ''} >`;
 }
 
-function typeText(element, text, index = 0) {
+
+function typeText(element, responseArray, index = 0) {
     if (index === 0) {
         element.currentTypingSpan = document.createElement('span');
         // Insert the span just before the inputContainer
         element.insertBefore(element.currentTypingSpan, document.getElementById('inputContainer'));
     }
 
-    if (index < text.length) {
-        element.currentTypingSpan.textContent += text.charAt(index);
-        setTimeout(() => typeText(element, text, index + 1), 10);
-    } else {
-        const br = document.createElement('br');
-    element.insertBefore(br, document.getElementById('inputContainer'));
+    if (index < responseArray.length) {
+        const line = responseArray[index];
+        
+        if(line.type === "text") {
+            element.currentTypingSpan.textContent += line.content;
+        } else if (line.type === "link") {
+            const link = document.createElement('a');
+            link.href = line.content;
+            link.textContent = line.label || line.content;
+            link.target = "_blank";
+            element.currentTypingSpan.appendChild(link);
+            element.currentTypingSpan.appendChild(document.createElement('br'));
+        }
 
+        const br = document.createElement('br');
+        element.insertBefore(br, document.getElementById('inputContainer'));
+        setTimeout(() => typeText(element, responseArray, index + 1), 10);
+    } else {
         delete element.currentTypingSpan; 
     }
-}  
+}
 
 function clearTerminal() {
   // Remove all child nodes from the terminal
