@@ -1,16 +1,16 @@
 {
   "/": {
       "ls": [{"type": "text", "content": "resume.txt  contact.txt  projects"}],
-      "cat resume.txt": [{"type": "text", "content": "Hi, I'm Eric. I'm an Integrations Specialist with a passion for learning and a fascination with command line interfaces."}],
+      "cat resume.txt": [{"type": "text", "content": "Hi, I'm Eric. I'm an Integration Specialist with 4 years of experience in information technology. I have a passion for learning and a fascination with command line interfaces."}],
       "cat contact.txt": [
-        {"type": "link", "content": "mailto:eric@tossell.ca", "label": "Email me!"},
+        {"type": "link", "content": "mailto:eric@tossell.ca", "label": "Shoot me an email me!"},
         {"type": "link", "content": "https://www.linkedin.com/in/eric-tossell/", "label": "Check out my LinkedIn"}
       ]
   },
   "projects": {
-      "ls": [{"type": "text", "content": "docs.md  MythicPlusBot.md  Clocker.md"}],
-      "cat docs.md": [{"type": "link", "content": "https://docs.eriim.dev"}],
-      "cat MythicPlusBot.md": [{"type": "link", "content": "https://mythicplusbot.dev"}],
-      "cat Clocker.md": [{"type": "link", "content": "https://clocker.eriim.dev"}]
+      "ls": [{"type": "text", "content": "docs.md  MythicPlusBot.md  nixflakes.md"}],
+      "cat docs.md": [{"type": "link", "content": "https://docs.eriim.dev", "label": "My documentation repository. A permanent work in progress."}],
+      "cat MythicPlusBot.md": [{"type": "link", "content": "https://mythicplusbot.dev", "label":"Mythic Plus Bot: A Discord bot for World of Warcraft Guilds and Mythic+ Players."}],
+      "cat nixflakes.md": [{"type": "link", "content": "https://github.com/erictossell/nixflakes", "label":"Nixflakes: Check out my operating system configurations for my desktop and my laptop."}]
   }
 }
