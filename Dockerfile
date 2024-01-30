@@ -1,15 +1,13 @@
-
-# Use an official Python runtime as the parent image
-FROM python:alpine
+FROM etossell/homepage-nix:latest
 
 # Set the working directory in the container to /app
-WORKDIR /app
+WORKDIR /static
 
 # Copy the current directory contents into the container at /app
-COPY . /app
+COPY ./static /static
 
 # Make port 8000 available to the world outside this container
-EXPOSE 8000
+EXPOSE 5000
 
-# Run simple HTTP server on port 8000
-CMD ["python", "-m", "http.server", "8000"]
+#CMD ["homepage-nix" "--port" "8081" "--static-dir" "/static"]
+
