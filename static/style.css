@@ -1,110 +1,148 @@
-body.dark, body.dark #terminal {
-    background-color: #1a1a1a;
-    color: #f0f0f0;
+body.dark,
+body.dark #terminal {
+	background-color: #1a1a1a;
+	color: #f0f0f0;
 }
 
-body.light, body.light #terminal {
-    background-color: #f0f0f0;
-    color: #1a1a1a;
+body.light,
+body.light #terminal {
+	background-color: #f0f0f0;
+	color: #1a1a1a;
 }
 
-body.blue, body.blue #terminal {
-    background-color: blue;
-    color: #f0f0f0;
-}
-body.green, body.green #terminal {
-    background-color: green;
-    color: black;
-}
-body.red, body.red #terminal {
-    background-color: red;
-    color: black;
+body.blue,
+body.blue #terminal {
+	background-color: blue;
+	color: #f0f0f0;
 }
 
+body.green,
+body.green #terminal {
+	background-color: green;
+	color: black;
+}
+
+body.red,
+body.red #terminal {
+	background-color: red;
+	color: black;
+}
+
+@font-face {
+	font-family: 'Argon';
+	src: url('./fonts/MonaspaceArgon-Regular.woff2') format('woff2'),
+		url('./fonts/MonaspaceArgon-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Krypton';
+	src: url('./fonts/MonaspaceKrypton-Regular.woff2') format('woff2'),
+		url('./fonts/MonaspaceKrypton-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Neon';
+	src: url('./fonts/MonaspaceNeon-Regular.woff2') format('woff2'),
+		url('./fonts/MonaspaceNeon-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 
 body {
-    font-family: 'Courier New', monospace;
-    background-color: black;
-    color: #f0f0f0;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	font-family: 'Neon', monospace;
+	font-size: 16px;
+	background-color: black;
+	color: #f0f0f0;
+	height: 100vh;
+	margin: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #terminal-container {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #terminal {
-    width: 100%;
-    height: 100%;
-    
-    background-color: black;
-    padding: 10px;
-    overflow-y: auto;
-    
-    display: flex;
-    flex-direction: column;
+	width: 100%;
+	height: 100%;
+
+	background-color: black;
+	padding: 10px;
+	overflow-y: auto;
+
+	display: flex;
+	flex-direction: column;
 }
 
 #prompt {
-    display: inline-block;
-    margin-right: 10px;
+	display: inline-block;
+	margin-right: 10px;
 }
 
 #commandInput {
-    display: inline-block;
-    width: 300px;
-    margin-top: 5px;            
-    background-color: transparent;
-    border: none;
-    caret-color: #f0f0f0;
-    color: #f0f0f0;
-    padding: 5px;
-    outline: none;            
+	font-family: 'Krypton', monospace;
+	font-size: 16px;
+	display: inline-block;
+	width: 300px;
+	background-color: transparent;
+	border: none;
+	caret-color: #f0f0f0;
+	color: #f0f0f0;
+	padding: 5px;
+	outline: none;
 }
 
 #commandInput::placeholder {
-    color: #777;
+	color: #777;
 }
 
 #commandInput::-webkit-outer-spin-button,
 #commandInput::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+	-webkit-appearance: none;
 }
 
 #commandInput[type="number"] {
-    -moz-appearance: textfield;
+	-moz-appearance: textfield;
+	appearance: textfield;
 }
 
 #inputContainer {
-    display: flex;
-    align-items: center; 
+	display: flex;
+	align-items: center;
 }
 
 #themeToggleButton {
-    position: fixed;     /* Fix the position relative to the viewport */
-    top: 10px;           /* 10 pixels from the top of the viewport */
-    right: 10px;         /* 10 pixels from the right of the viewport */
-    z-index: 1000;       /* A high z-index to ensure the button stays on top of other elements */
+	position: fixed;
+	/* Fix the position relative to the viewport */
+	top: 10px;
+	/* 10 pixels from the top of the viewport */
+	right: 10px;
+	/* 10 pixels from the right of the viewport */
+	z-index: 1000;
+	/* A high z-index to ensure the button stays on top of other elements */
 
-    /* Additional styling for your button to look modern */
-    background-color: #333;
-    border: none;
-    border-radius: 8px;
-    color: #f0f0f0;
-    padding: 8px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
+	/* Additional styling for your button to look modern */
+	background-color: #333;
+	border: none;
+	border-radius: 8px;
+	color: #f0f0f0;
+	padding: 8px 15px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	/* Smooth transition for hover effect */
 }
 
 #themeToggle:hover {
-    background-color: #555; /* Slightly lighter shade on hover */
+	background-color: #555;
+	/* Slightly lighter shade on hover */
 }
