@@ -75,11 +75,9 @@ body {
 #terminal {
 	width: 100%;
 	height: 100%;
-
 	background-color: black;
 	padding: 10px;
 	overflow-y: auto;
-
 	display: flex;
 	flex-direction: column;
 }
@@ -92,18 +90,13 @@ body {
 #commandInput {
 	font-family: 'Krypton', monospace;
 	font-size: 16px;
+	color: inherit;
 	display: inline-block;
-	width: 300px;
+	width: 50%;
 	background-color: transparent;
 	border: none;
-	caret-color: #f0f0f0;
-	color: #f0f0f0;
 	padding: 5px;
 	outline: none;
-}
-
-#commandInput::placeholder {
-	color: #777;
 }
 
 #commandInput::-webkit-outer-spin-button,
